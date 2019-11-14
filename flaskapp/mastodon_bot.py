@@ -87,11 +87,21 @@ def get_db_account(db, mastodon_client, username):
 	BOT_LOG.info(f'Getting database info for username {username}...')
 	account = get_account(mastodon_client, username)
 	db_account = Account.query.get(str(account['id']))
-	return (
-		str(
-			[str(status) for status in db_account.statuses],
-		)
-	)
+	return (db_account)
+
+
+def get_db_statuses(db, mastodon_client, username):
+	BOT_LOG.info(f'Getting database statuses for username {username}...')
+	account = get_account(mastodon_client, username)
+	db_account = Account.query.get(str(account['id']))
+	return ([status.content for status in db_account.statuses])
+
+
+def get_db_embeddings(db, mastodon_client, username):
+	BOT_LOG.info(f'Getting database embeddings for username {username}...')
+	account = get_account(mastodon_client, username)
+	db_account = Account.query.get(str(account['id']))
+	return ([status.embedding for status in db_account.statuses])
 
 
 def add_account(db, basilica_client, mastodon_client, username, count=20):

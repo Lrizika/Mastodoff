@@ -6,7 +6,7 @@ import flaskapp
 
 from flask import Flask, render_template, request
 from flaskapp.model import DB
-from flaskapp.mastodon_bot import instantiate_basilica, instantiate_bot, add_account, get_db_account
+from flaskapp.mastodon_bot import instantiate_basilica, instantiate_bot, add_account, get_db_statuses
 from flaskapp.log import startLog
 
 
@@ -53,12 +53,12 @@ def get():
 	try:
 		username = request.values['username']
 		APP_LOG.info(f'/get called with username {username}')
-		success = True
+		success = get_db_statuses(DB, mastodon_client, username)
 	except Exception as e:
 		APP_LOG.exception(f'Exception in /get: {e}')
 		APP_LOG.exception(e)
 		success = False
-	return (str(get_db_account(DB, mastodon_client, username)))
+	return (index(success))
 
 
 @app.route("/reset")
