@@ -15,10 +15,10 @@ class Account(DB.Model):
 	statuses = DB.relationship('Status', back_populates='account', lazy='select')
 
 	def __repr__(self):
-		return(f'<Account {self.id} ({self.username})>')
+		return(f'<Account {str(self.id)} ({self.username})>')
 
 	def __str__(self):
-		return(f'{self.username} ({self.id}, {self.url})')
+		return(f'{self.username} ({str(self.id)}, {self.url})')
 
 
 class Status(DB.Model):
@@ -32,7 +32,7 @@ class Status(DB.Model):
 	account = DB.relationship('Account', back_populates='statuses', lazy='select')
 
 	def __repr__(self):
-		return(f'<Status {self.id} by {self.accountid}>')
+		return(f'<Status {str(self.id)} by {self.accountid}>')
 
 	def __str__(self):
 		return(f'{self.account} ({self.uri}): "{self.content}"')

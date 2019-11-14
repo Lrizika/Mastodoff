@@ -158,7 +158,7 @@ def add_account(db, basilica_client, mastodon_client, username, count=None):
 	db_account = Account.query.get(str(account['id']))
 	if db_account is None:
 		db_account = Account(
-			id=account['id'],
+			id=str(account['id']),
 			username=account['username'],
 			url=account['url'],
 			acct=account['acct'],
@@ -175,9 +175,9 @@ def add_account(db, basilica_client, mastodon_client, username, count=None):
 	for status in statuses:
 		if db.session.query(Status.id).filter_by(id=str(status['id'])).scalar() is None:
 			db_status = Status(
-				id=status['id'],
+				id=str(status['id']),
 				uri=status['uri'],
-				accountid=status['account']['id'],
+				accountid=str(status['account']['id']),
 				content=status['content'],
 				embedding=status['embedding'],
 			)
