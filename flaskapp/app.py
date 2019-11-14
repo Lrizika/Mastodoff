@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import logging
 import os
 import flaskapp
 
@@ -9,7 +10,8 @@ from flaskapp.mastodon_bot import instantiate_basilica, instantiate_bot, add_acc
 from flaskapp.log import startLog
 
 
-APP_LOG = startLog(None)
+startLog(None)
+APP_LOG = logging.getLogger('root')
 
 
 APP_LOG.info('Creating app...')

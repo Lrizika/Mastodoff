@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
 import basilica
+import logging
 import os
 
 from decouple import config
 from mastodon import Mastodon
 from flaskapp.model import Account, Status
-from flaskapp.log import startLog
 
 
-BOT_LOG = startLog(None)
+BOT_LOG = logging.getLogger('root')
 
 
 def instantiate_bot() -> Mastodon:
