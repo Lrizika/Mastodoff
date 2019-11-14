@@ -40,7 +40,8 @@ def add():
 		add_account(DB, basilica_client, mastodon_client, username)
 		success = True
 	except Exception as e:
-		APP_LOG.error(f'Exception in /add: {e}')
+		APP_LOG.exception(f'Exception in /add: {e}')
+		APP_LOG.exception(e)
 		success = False
 	return (index(success))
 
@@ -52,7 +53,8 @@ def get():
 		APP_LOG.info(f'/get called with username {username}')
 		success = True
 	except Exception as e:
-		APP_LOG.error(f'Exception in /get: {e}')
+		APP_LOG.exception(f'Exception in /get: {e}')
+		APP_LOG.exception(e)
 		success = False
 	return (str(get_db_account(DB, mastodon_client, username)))
 
@@ -66,7 +68,8 @@ def reset():
 		DB.create_all()
 		success = True
 	except Exception as e:
-		APP_LOG.error(f'Exception in /reset: {e}')
+		APP_LOG.exception(f'Exception in /reset: {e}')
+		APP_LOG.exception(e)
 		success = False
 	return (index(success))
 
