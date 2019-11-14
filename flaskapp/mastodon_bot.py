@@ -126,15 +126,15 @@ def add_account(db, basilica_client, mastodon_client, username, count=20):
 		statuses[i]['embedding'] = embeddings[i]
 
 	for status in statuses:
-		# embedding = list(get_embedding(basilica_client, status))
-		db_status = Status(
-			id=status['id'],
-			uri=status['uri'],
-			accountid=status['account']['id'],
-			content=status['content'],
-			embedding=status['embedding'],
-		)
-		db.session.add(db_status)
+		if db.session.query(Status.id).filter_by(id=str(status['id'])).scalar() is None:
+			db_status = Status(
+				id=status['id'],
+				uri=status['uri'],
+				accountid=status['account']['id'],
+				content=status['content'],
+				embedding=status['embedding'],
+			)
+			db.session.add(db_status)
 
 	db.session.commit()
 	BOT_LOG.info(f'Done adding account.')
