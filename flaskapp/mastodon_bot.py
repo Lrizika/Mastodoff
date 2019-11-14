@@ -6,7 +6,7 @@ import os
 from decouple import config
 from mastodon import Mastodon
 from flaskapp.model import Account, Status
-from flaskapp.log import startLog, LOGFILE
+from flaskapp.log import startLog
 
 
 BOT_LOG = startLog(None)
