@@ -9,7 +9,7 @@ from flaskapp.mastodon_bot import instantiate_basilica, instantiate_bot, add_acc
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 DB.init_app(app)
 
 mastodon_client = instantiate_bot()
