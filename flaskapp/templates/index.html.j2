@@ -11,6 +11,23 @@
 
 	<body>
 		<p>success: {{ success }}</p>
+		<p>message: {{ message }}</p>
+
+		<form action='/add' method='post'>
+			<label for='username'>Mastodon Username:</label>
+			<input type='text' name='username' placeholder='@user@instance.tld'>
+			<input type='submit' value='Add Account'>
+		</form>
+
+		<form action='/get' method='get'>
+			<label for='username'>Mastodon Username:</label>
+			<input type='text' name='username' placeholder='@user@instance.tld'>
+			<input type='submit' value='Get Statuses'>
+		</form>
+
+		<form action='/reset' method='post'>
+			<input type='submit' value='Reset Database'>
+		</form>
 	</body>
 </html> 
 
