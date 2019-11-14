@@ -26,7 +26,7 @@ class Status(DB.Model):
 	id = DB.Column(DB.String(255), primary_key=True, nullable=False)
 	uri = DB.Column(DB.String(255), nullable=False)
 	accountid = DB.Column(DB.String(255), DB.ForeignKey('account.id'), nullable=False)
-	content = DB.Column(DB.String(255), nullable=False)
+	content = DB.Column(DB.PickleType, nullable=False)
 	embedding = DB.Column(DB.PickleType, nullable=False)
 
 	account = DB.relationship('Account', back_populates='statuses', lazy='select')
