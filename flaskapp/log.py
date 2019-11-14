@@ -1,7 +1,12 @@
 import logging
 from logging.handlers import RotatingFileHandler
+from os import path
 
-LOGFILE = 'logs/mastodoff.log'
+LOGFILE = path.join(
+	path.dirname(
+		path.abspath(__file__)
+	), 'logs/mastodoff.log'
+)
 
 
 def startLog(file):

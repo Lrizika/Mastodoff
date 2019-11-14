@@ -103,6 +103,7 @@ def add_account(db, basilica_client, mastodon_client, username, count=20):
 		db_account = Account(
 			id=account['id'],
 			username=account['username'],
+			url=account['url'],
 			acct=account['acct'],
 		)
 	db.session.add(db_account)

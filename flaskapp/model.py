@@ -9,6 +9,7 @@ class Account(DB.Model):
 	__tablename__ = 'account'
 	id = DB.Column(DB.String(255), primary_key=True, nullable=False)
 	username = DB.Column(DB.String(255), nullable=False)
+	url = DB.Column(DB.String(255), nullable=False)
 	acct = DB.Column(DB.String(255), nullable=False)
 
 	statuses = DB.relationship('Status', back_populates='account', lazy='select')
@@ -17,7 +18,7 @@ class Account(DB.Model):
 		return(f'<Account {self.id} ({self.username})>')
 
 	def __str__(self):
-		return(f'{self.username} ({self.id})')
+		return(f'{self.username} ({self.id}, {self.url})')
 
 
 class Status(DB.Model):
@@ -34,5 +35,5 @@ class Status(DB.Model):
 		return(f'<Status {self.id} by {self.accountid}>')
 
 	def __str__(self):
-		return(f'{self.account}: "{self.content}"')
+		return(f'{self.account} ({self.uri}): "{self.content}"')
 
