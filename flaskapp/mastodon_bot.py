@@ -127,7 +127,7 @@ def get_embeddings(client, contents):
 	return (embeddings)
 
 
-def get_db_account(db, mastodon_client, username):
+def get_db_account(mastodon_client, username):
 	BOT_LOG.info(f'Getting database info for username {username}...')
 	account = get_account(mastodon_client, username)
 	db_account = Account.query.get(str(account['id']))
@@ -138,13 +138,13 @@ def get_db_account(db, mastodon_client, username):
 	return (db_account)
 
 
-def get_db_statuses(db, mastodon_client, username):
+def get_db_statuses(mastodon_client, username):
 	BOT_LOG.info(f'Getting database statuses for username {username}...')
-	db_account = get_db_account(db, mastodon_client, username)
+	db_account = get_db_account(mastodon_client, username)
 	return ([status.content for status in db_account.statuses])
 
 
-def get_db_embeddings(db, mastodon_client, username):
+def get_db_embeddings(mastodon_client, username):
 	BOT_LOG.info(f'Getting database embeddings for username {username}...')
 	account = get_account(mastodon_client, username)
 	db_account = Account.query.get(str(account['id']))
@@ -186,5 +186,5 @@ def add_account(db, basilica_client, mastodon_client, username, count=None):
 	db.session.commit()
 	BOT_LOG.info(f'Done adding account.')
 
-	return (account)
+	return (db_account)
 

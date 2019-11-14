@@ -16,6 +16,7 @@ basilica = "*"
 mastodon-py = "*"
 python-decouple = "*"
 gunicorn = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.7"

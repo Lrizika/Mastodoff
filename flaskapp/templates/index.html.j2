@@ -10,14 +10,13 @@
 	</head>
 
 	<body>
-		<p>success: {{ success }}</p>
-		<p>message: {{ message }}</p>
-
 		<form action='/add' method='post'>
 			<label for='username'>Mastodon Username:</label>
 			<input type='text' name='username' placeholder='@user@instance.tld'>
 			<input type='submit' value='Add Account'>
 		</form>
+		
+		<hr />
 
 		<form action='/get' method='get'>
 			<label for='username'>Mastodon Username:</label>
@@ -25,9 +24,28 @@
 			<input type='submit' value='Get Statuses'>
 		</form>
 
+		<hr />
+
+		<form action='/predict' method='post'>
+			<label for='username1'>Mastodon Username 1:</label>
+			<input type='text' name='username1' placeholder='@user1@instance.tld'>
+			<label for='username2'>Mastodon Username 2:</label>
+			<input type='text' name='username2' placeholder='@user2@instance.tld'>
+			<label for='content'>Content:</label>
+			<input type='text' name='content' placeholder='Content to predict.'>
+			<input type='submit' value='Predict who said it!'>
+		</form>
+
+		<hr />
+
 		<form action='/reset' method='post'>
 			<input type='submit' value='Reset Database'>
 		</form>
+
+		<hr />
+
+		<p>success: {{ success }}</p>
+		<p>message: {{ message }}</p>
 	</body>
 </html> 
 

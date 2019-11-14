@@ -9,6 +9,7 @@ from flaskapp.model import DB
 from flaskapp.mastodon_bot import instantiate_basilica, instantiate_bot, add_account, get_db_statuses
 from flaskapp.log import startLog
 from flaskapp.exceptions import MastodoffError
+from flaskapp.predict import predict_account
 
 
 startLog(None)
@@ -40,8 +41,8 @@ def add():
 	try:
 		username = request.values.get('username', None)
 		APP_LOG.info(f'/add called with username {username}')
-		account = add_account(DB, basilica_client, mastodon_client, username, count=200)
-		message = f'Successfully added account {account["username"]} at {account["url"]}'
+		account = add_account(DB, basilica_client, mastodon_client, username, count=100)
+		message = f'Successfully added account {account}'
 		success = True
 	except Exception as e:
 		APP_LOG.exception(f'Exception in /add: {e}')
@@ -58,12 +59,32 @@ def get():
 	try:
 		username = request.values.get('username', None)
 		APP_LOG.info(f'/get called with username {username}')
-		message = get_db_statuses(DB, mastodon_client, username)
+		message = get_db_statuses(mastodon_client, username)
 		success = True
 	except Exception as e:
 		APP_LOG.exception(f'Exception in /get: {e}')
 		APP_LOG.exception(e)
 		message = f'Unknown failure getting statuses for username {username}'
+		if isinstance(e, MastodoffError):
+			message = str(e)
+		success = False
+	return (index(success=success, message=message))
+
+
+@app.route("/predict", methods=['POST'])
+def predict():
+	try:
+		username1 = request.values.get('username1', None)
+		username2 = request.values.get('username2', None)
+		content = request.values.get('content', None)
+		APP_LOG.info(f'/predict called with usernames: {username1, username2}, content: {content}')
+		prediction = predict_account(basilica_client, mastodon_client, username1, username2, content)
+		message = f'Account with username {prediction} is more likely to post "{content}".'
+		success = True
+	except Exception as e:
+		APP_LOG.exception(f'Exception in /predict: {e}')
+		APP_LOG.exception(e)
+		message = f'Unknown failure getting predictions for usernames: {username1, username2}, content: {content}'
 		if isinstance(e, MastodoffError):
 			message = str(e)
 		success = False
