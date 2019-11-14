@@ -1,5 +1,5 @@
 import logging
-from logging.handlers import RotatingFileHandler
+from logging.handlers import RotatingFileHandler, StreamHandler
 from os import path
 
 LOGFILE = path.join(
@@ -12,8 +12,11 @@ LOGFILE = path.join(
 def startLog(file):
 	log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(filename)s:%(funcName)s(%(lineno)d) %(message)s')
 
-	my_handler = RotatingFileHandler(file, mode='a', maxBytes=1 * 1024 * 1024,
+	if file is not None:
+		my_handler = RotatingFileHandler(file, mode='a', maxBytes=1 * 1024 * 1024,
 									backupCount=10, encoding=None, delay=0)
+	else:
+		my_handler = StreamHandler()
 	my_handler.setFormatter(log_formatter)
 	my_handler.setLevel(logging.DEBUG)
 

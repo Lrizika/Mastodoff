@@ -9,7 +9,7 @@ from flaskapp.model import Account, Status
 from flaskapp.log import startLog, LOGFILE
 
 
-BOT_LOG = startLog(LOGFILE)
+BOT_LOG = startLog(None)
 
 
 def instantiate_bot() -> Mastodon:
