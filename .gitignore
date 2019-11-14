@@ -1,4 +1,10 @@
+# Workspace settings
 .vscode/*
+# API tokens and whatnot
+*.secret
+.env
+# Logs
+*.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
