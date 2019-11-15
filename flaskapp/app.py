@@ -41,7 +41,7 @@ def add():
 	try:
 		username = request.values.get('username', None)
 		APP_LOG.info(f'/add called with username {username}')
-		account = add_account(DB, basilica_client, mastodon_client, username, count=100)
+		account = add_account(DB, basilica_client, mastodon_client, username, count=120)
 		message = f'Successfully added account {account}'
 		success = True
 	except Exception as e:
